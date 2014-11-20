@@ -92,13 +92,20 @@ public class PanelAcciones extends JPanel implements ActionListener {
 	 */
 	private JButton butODos;
 	
+	/**
+	 * Atributo que representa la interfaz
+	 */
+	private InterfazCrucigrama interfaz;
+	
 
 	// ----------------------------------------------------------------
 	// Constructores
 	// ----------------------------------------------------------------
 	
-	public PanelAcciones ()
+	public PanelAcciones (InterfazCrucigrama pInterfaz)
 	{
+		interfaz = pInterfaz;
+		
 		setLayout(new GridLayout(2,4));
 		TitledBorder border = BorderFactory.createTitledBorder("Opciones");
 		setBorder(border);

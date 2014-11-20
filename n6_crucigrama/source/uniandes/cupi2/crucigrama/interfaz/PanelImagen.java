@@ -23,7 +23,7 @@ public class PanelImagen extends JPanel {
 	{
 		setLayout( new GridLayout(1,1));
 		
-		imagen = new JLabel( new ImageIcon("/n6_crucigrama/data/imagenes/banner.jpg"));
+		imagen = new JLabel( new ImageIcon("../n6_crucigrama/data/imagenes/banner.jpg"));
 		add(imagen);
 		
 	}

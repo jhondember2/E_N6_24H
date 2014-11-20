@@ -2,8 +2,12 @@ package uniandes.cupi2.crucigrama.interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.LayoutManager;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+
+import uniandes.cupi2.crucigrama.mundo.Crucigrama;
 
 /**
  * Interfaz crucigrama
@@ -16,7 +20,7 @@ public class InterfazCrucigrama extends JFrame  {
 	// ----------------------------------------------------------------
 	// Atributos de la interfaz
 	// ----------------------------------------------------------------
-	
+	 
 	/**
 	 * Panel con las acciones
 	 */
@@ -37,6 +41,9 @@ public class InterfazCrucigrama extends JFrame  {
 	 */
 	private PanelTablero tablero;
 	
+	// Asociación con el mundo 
+	
+	private Crucigrama mundo;
 	
 	// ----------------------------------------------------------------
 	// Constructores
@@ -44,6 +51,9 @@ public class InterfazCrucigrama extends JFrame  {
 	
 	public InterfazCrucigrama() throws Exception
 	{
+		cargarTablero();
+		if()
+		mundo = new Crucigrama(File arch);
 		
 		
 		// Configura la informacion de la ventana 
@@ -58,18 +68,37 @@ public class InterfazCrucigrama extends JFrame  {
 		acciones = new PanelAcciones(this);
 		descripciones = new PanelDescripciones();
 		imagen = new PanelImagen();
-		tablero = new PanelTablero();
+		tablero = new PanelTablero(mundo.filas, int columna );
 		
 		// Adiciona los componentes graficos al panel 
 		add(acciones, BorderLayout.SOUTH);
 		add(descripciones, BorderLayout.WEST);
 		add(imagen, BorderLayout.NORTH);
 		add(tablero, BorderLayout.EAST);
+
+	}
 	
+	public void cargarTablero()
+	{
+		JFileChooser fc = new JFileChooser("./data");
+		fc.setDialogTitle("Abrir el archivo de crucigrama");
 		
+		File archivoCrucigrama = null;
+		int resultado = fc.showOpenDialog(this);
+		
+		if ( resultado == JFileChooser.APPROVE_OPTION) {
+			
+			archivoCrucigrama = fc.getSelectedFile();
+			
+		}
 		
 		
 	}
+	
+	/**
+	 * Metodo para configura esta clase como la principal 
+	 * @param args
+	 */
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

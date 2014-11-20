@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 
-
-
 /**
  * Clase principal del mundo
  * @author pa.parra12
@@ -20,19 +18,39 @@ public class Crucigrama {
 	// Atributos 
 	// ----------------------------------------------------------------
 	
+	/**
+	 * Atributo que define el numero de columnas del crucigrama
+	 */
 	private int columnas;
 	
+	/**
+	 * Atributo que define el numero de filas del crucigrama
+	 */
 	private int filas;
 	
+	/**
+	 * Atributo para la matriz del tablero del crucigrama
+	 */
 	private String[][] tablero;
 	
+	/**
+	 * Atributo que almacena las palabras leídas del archivo de propiedades
+	 */
 	private String[] palabras;
 	
+	// Asociación con el mundo
+	
+	private Crucigrama mundo;
 	
 	// ----------------------------------------------------------------
 	// Constructores
 	// ----------------------------------------------------------------
 	
+	/**
+	 * Constructor de la clase 
+	 * @param arch
+	 * @throws Exception
+	 */
 	public Crucigrama(File arch) throws Exception
 	{
 		
@@ -44,6 +62,12 @@ public class Crucigrama {
 		
 	}
 	
+	/**
+	 * Cargar la información del archivo del archivo en un objeto properties
+	 * @param arch
+	 * @return
+	 * @throws Exception
+	 */
 	private Properties cargarInfoCampeonato( File arch) throws Exception
 	{
 		

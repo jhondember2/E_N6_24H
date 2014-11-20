@@ -13,12 +13,18 @@ public class PanelImagen extends JPanel {
 	// Atributos de la interfaz 
 	// ----------------------------------------------------------------
 	
+	/**
+	 * Atributo de la etiqueta que contiene la imagen
+	 */
 	private JLabel imagen;
 	
 	// ----------------------------------------------------------------
 	// Constructores  
 	// ----------------------------------------------------------------
 	
+	/**
+	 * Constructor de la clase
+	 */
 	public PanelImagen()
 	{
 		setLayout( new GridLayout(1,1));

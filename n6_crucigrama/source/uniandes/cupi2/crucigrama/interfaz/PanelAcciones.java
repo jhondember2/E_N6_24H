@@ -92,6 +92,10 @@ public class PanelAcciones extends JPanel implements ActionListener {
 	 */
 	private JButton butODos;
 	
+	// ----------------------------------------------------------------
+	// Asociación con la interfaz 
+	// ----------------------------------------------------------------
+	
 	/**
 	 * Atributo que representa la interfaz
 	 */
@@ -102,6 +106,10 @@ public class PanelAcciones extends JPanel implements ActionListener {
 	// Constructores
 	// ----------------------------------------------------------------
 	
+	/**
+	 * Constructor de la clase 
+	 * @param pInterfaz
+	 */
 	public PanelAcciones (InterfazCrucigrama pInterfaz)
 	{
 		interfaz = pInterfaz;
@@ -149,17 +157,38 @@ public class PanelAcciones extends JPanel implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent evento) {
 		// TODO Auto-generated method stub
 		
+		String comando = evento.getActionCommand();
 		
-		
+		if(comando.equals(V_HORIZONTALES))
+		{
+			
+		}
+		else if (comando.equals(V_VERTICALES))
+		{
+			
+		}
+		else if (comando.equals(SOLUCIONAR)) 
+		{
+			
+		} 
+		else if (comando.equals(LIMPIAR))
+		{
+			
+		}
+		else if (comando.equals(CARGAR))
+		{
+			interfaz.cargarTablero();
+		}
+		else if (comando.equals(O_UNO)) {
+			
+		}
+		else if (comando.equals(O_DOS))
+		{
+			
+		}
 	}
-	
-	// ----------------------------------------------------------------
-	// Contructores
-	// ----------------------------------------------------------------
-	
-	
 	
 }

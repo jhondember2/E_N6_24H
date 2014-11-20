@@ -1,5 +1,10 @@
 package uniandes.cupi2.crucigrama.interfaz;
 
-public class PanelDescripciones {
+import javax.swing.JPanel;
 
+public class PanelDescripciones extends JPanel {
+
+	
+	
+	
 }

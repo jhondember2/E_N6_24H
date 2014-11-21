@@ -140,6 +140,14 @@ public class InterfazCrucigrama extends JFrame  {
 	
 		try {
 			
+			mundo.actualizarLetras(panelCrucigrama.darLetras());
+			mundo.validarHorizontales();
+			Palabra[] palabras = mundo.darPalabrasHorizontales();
+			for (int i = 0; i < palabras.length; i++) {
+				Palabra actual = palabras[i];
+				PanelTablero.pintarPalabraHorizontal(actual);
+			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			
@@ -153,7 +161,13 @@ public class InterfazCrucigrama extends JFrame  {
 	public void validarVerticales()
 	{
 		try {
-			
+			mundo.actualizarLetras(PanelTablero.darLetras());
+			mundo.validarverticales();
+			Palabra[] palabras = mundo.darPalabrasVerticales();
+			for (int i = 0; i < palabras.length; i++) {
+				Palabra actual = palabras[i];
+				PanelTablero.pintarPalabraVertical(actual);
+			}
 			
 			
 		} catch (Exception e) {
@@ -172,6 +186,9 @@ public class InterfazCrucigrama extends JFrame  {
 		
 		try {
 			
+			mundo.actualizarLetras(PanelTablero.darLetras());
+			PanelTablero.solucionar(mundo.darTablero());
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			
@@ -185,6 +202,9 @@ public class InterfazCrucigrama extends JFrame  {
 	public void limpiar()
 	{
 		try {
+			
+			mundo.limpiar();
+			PanelTablero.inicializar(mundo.darFilas(), mundo.darColumnas(), mundo.darTablero());
 			
 		} catch (Exception e) {
 			// TODO: handle exception

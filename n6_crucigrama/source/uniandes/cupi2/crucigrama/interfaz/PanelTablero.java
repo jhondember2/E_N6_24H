@@ -47,7 +47,7 @@ public class PanelTablero extends JPanel {
 	}
 	
 	
-	public void inicializar(int filas, int columnas)
+	public void inicializar(int filas, int columnas, String[][] pCuadricula )
 	{
 		
 		cuadricula = new JTextField[filas][columnas];

@@ -3,6 +3,7 @@ package uniandes.cupi2.crucigrama.mundo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -14,11 +15,16 @@ import java.util.Properties;
 public class Crucigrama 
 {
 	
-	public static final String VACIO = "";
+
 	
 	// ----------------------------------------------------------------
 	// Atributos 
 	// ----------------------------------------------------------------
+	
+	/**
+	 * Contenedor de las palabras horizontales del crucigrama.
+	 */
+	private ArrayList<String> palabras;
 	
 	/**
 	 * Atributo que define el numero de columnas del crucigrama
@@ -33,7 +39,7 @@ public class Crucigrama
 	/**
 	 * Matriz del tablero del crucigrama 
 	 */
-	private String[][] tablero;
+	private char[][] tablero;
 	
 	/**
 	 * Arreglo que almacena las descripciones horizontales del archivo de propiedades
@@ -62,157 +68,182 @@ public class Crucigrama
 	public Crucigrama(File arch) throws Exception
 	{
 		
-		Properties datos = cargarInfoCrucigrama(arch);
-		
-		inicializarPalabras(datos);
-		
-		inicializarTablero();
-		
-	}
-	
-	/**
-	 * Cargar la información del archivo del archivo en un objeto properties
-	 * @param arch
-	 * @return
-	 * @throws Exception
-	 */
-	public Properties cargarInfoCrucigrama( File arch) throws Exception
-	{
-		
 		Properties datos = new Properties();
-		datos.load(new FileReader(arch));
-		
-		filas = Integer.parseInt(datos.getProperty("crucigrama.filas"));
-		columnas = Integer.parseInt(datos.getProperty("crucigrama.columnas"));
-		
-		tablero = new String[filas][columnas];
-		
-		for (int i = 0; i < filas; i++) {
-			
-			String fila = datos.getProperty("crucigrama.fila"+(i+1));
-			
-			for (int j = 0; j < columnas; j++) {
-				
-				String letra = fila.charAt(j)+"";
-				
-				tablero[i][j] = new String(letra);	
-			}
-		}
-		
-				
-		int numHorizontales = Integer.parseInt(datos.getProperty("crucigrama.palabrasHorizontales"));
-		palabraH = new String[numHorizontales];
-				
-		for (int i = 0; i < numHorizontales; i++) {
-					
-			String descripcion =  datos.getProperty("crucigrama.Hdescripcion"+(i+1));
-					
-			String[] inicio =  datos.getProperty("crucigrama.Hpalabra"+(i+1)).trim().split(";");
-					
-			int filaInicial = Integer.parseInt(inicio[0]) -1;
-			int columnaInicial = Integer.parseInt(inicio[1]) -1;
-			int longitud = 0;
-		
-			boolean terminar = false;
-			
-			for (int j = columnaInicial; j < columnas && terminar == false; j++) {
-				String actual = tablero[filaInicial][j];
-				if(actual.equalsIgnoreCase("$"))
-				{
-					terminar = true;
-				}
-				else
-				{
-					longitud++;
-				}
-			}
-					
-			palabraH[i] = new String(descripcion, filaInicial, columnaInicial, longitud );
-		}
-				
-
-		int numVerticales = Integer.parseInt(datos.getProperty("crucigrama.palabrasVerticales"));
-		
-		palabraV = new String[numVerticales];
-		
-		for (int i = 0; i < numVerticales; i++) {
-			
-			String descripcion =  datos.getProperty("crucigrama.Vdescripcion"+(i+1));
-			
-			String[] inicio =  datos.getProperty("crucigrama.Vpalabra"+(i+1)).trim().split(";");
-			
-			int filaInicial = Integer.parseInt(inicio[0]) -1;
-			int columnaInicial = Integer.parseInt(inicio[1]) -1;
-			int longitud = 0;
-			boolean terminar = false;
-			
-			for (int j = filaInicial; j < filas && terminar == false; j++) {
-				String actual = tablero[j][columnaInicial];
-				if(actual.equals("$"))
-				{
-					terminar = true;
-				}
-				else
-				{
-					longitud++;
-				}
-			}
-			
-			palabraV[i] = new String(descripcion, filaInicial, columnaInicial, longitud );
-		}
-		
-
-		FileInputStream in = new FileInputStream ( arch);
-		
-		try {
-			
+		FileInputStream in = new FileInputStream(arch);
+		try
+		{
 			datos.load(in);
 			in.close();
-			
-		} catch (Exception e) {
-			
-			throw new Exception ("Formato invalido");
+		}
+		catch(Exception e)
+		{
+			throw new Exception("Formato invalido");
 		}
 		
-		return datos;
-	}
-	
-	/**
-	 * Inicializa el arreglo de palabras con base en la información leída.
-	 * @param datos
-	 */
-	public void inicializarPalabras( Properties datos)
-	{
-		String strNumeroFilas = datos.getProperty("crucigrama.filas");
-		filas = Integer.parseInt(strNumeroFilas);
-		
-		palabraH = new String [filas];
-		
-		for (int i = 0; i < filas; i++) {
-			
-			String palabrasCrucigrama = datos.getProperty("crucigrama.fila" + i);
-			
-			palabraH [i] = new String ( palabrasCrucigrama);
+		int i =0;
+		String[] c = null;
+		palabraH = new String[Integer.parseInt(datos.getProperty("crucigrama.palabrasHorizontales"))];
+		while(i<palabraH.length)
+		{
+			c = datos.getProperty("crucigrama.Hpalabra" + (i+1)).split(";");
+			palabraH[i] = c[0] + ":" + c[1] + " - " + datos.getProperty("crucigrama.Hdescripcion" + (i+1));
+			i++;
 		}
 		
-	}
-	
-	/**
-	 * Inicializar la matriz que representa el tablero del crucigrama
-	 */
-	public void inicializarTablero()
-	{
-		tablero = new String[filas][columnas];
+		i =0;
+		palabraV = new String[Integer.parseInt(datos.getProperty("crucigrama.palabrasVerticales"))];
+		while(i<palabraV.length)
+		{
+			c = datos.getProperty("crucigrama.Vpalabra" + (i+1)).split(";");
+			palabraV[i] = c[0] + ":" + c[1] + " - " + datos.getProperty("crucigrama.Vdescripcion" + (i+1));
+			i++;
+		}
 		
-		for (int i = 0; i < filas; i++) {
-			
-			for (int j = 0; j < columnas; j++) {
-			
-				tablero[i][j] = VACIO;
+		columnas = Integer.parseInt(datos.getProperty("crucigrama.filas"));
+		filas = Integer.parseInt(datos.getProperty("crucigrama.columnas"));
+		tablero = new char[filas][columnas];
+		i =0;
+		int j =0;
+		String st="";
+		palabras = new ArrayList<String>();
+		while(i<filas)
+		{
+			j=0;
+			while(j<columnas)
+			{
+				tablero[i][j] = datos.getProperty("crucigrama.fila" + (i+1)).charAt(j);
 				
-				
+				if(!((""+tablero[i][j]).equals("$")))
+				{
+					st+= tablero[i][j];
+				}
+				else
+				{
+					palabras.add(st);
+					st = "";
+				}
+				j++;
 			}
+			if(st!="")
+			{
+			palabras.add(st);
+			st="";
+			}
+			i++;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public boolean solucionar(String[][] s)
+	{
+		int i =0;
+		int j =0;
+		while(i<s.length)
+		{
+			j=0;
+			while(j<s[0].length)
+			{
+				if(s[i][j].equals(" "))
+				{
+					j++;
+				}
+				else if(!(s[i][j].equalsIgnoreCase(""+tablero[i][j])))
+				{
+					return false;
+				}
+			j++;
+			}
+			i++;
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public boolean buscarPHorizontal(String s)
+	{
+		int i =0;
+		while(i<palabras.size())
+		{
+			if(palabras.get(i).equalsIgnoreCase(s))
+			{
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public boolean buscarPVertical(String s)
+	{
+		int i=0;
+		int j=0;
+		String st="";
+		boolean ya=false;
+		while(i<tablero[0].length)
+		{
+			while(j<tablero.length&&!ya)
+			{
+				if((tablero[j][i]+"").equals("$"))
+				{
+					ya=true;
+				}
+				else
+				{
+					st+=tablero[j][i];
+					j++;
+				}
+			}
+			if(st.equalsIgnoreCase(s))
+			{
+				return true;
+			}
+			if(j==filas)
+			{
+				j=0;
+				i++;
+			}
+			else
+			{
+				j++;
+			}
+			st="";
+			ya=false;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public char darL(int filas, int columnas)
+	{
+		return tablero[filas][columnas];
+	}
+	
+	/**
+	 * Devuelve la matriz cargada del archivo
+	 * @return matriz con el crucigrama
+	 */
+	public char[][] darTablero()
+	{
+		return tablero;
 	}
 	
 	/**

@@ -117,8 +117,8 @@ public class InterfazCrucigrama extends JFrame  {
 				mundo = new Crucigrama(archivoCrucigrama);
 				
 				// Crea los paneles que contiene tablero y las descripciones
-				descripciones = new PanelDescripciones();
-				tablero = new PanelTablero();
+				descripciones = new PanelDescripciones(mundo.darDescripH(), mundo.darDescripV());
+				tablero = new PanelTablero(this,mundo.darColumnas(),mundo.darFilas());
 				
 				// Agrega los componentes graficos 
 				add(descripciones, BorderLayout.WEST);
@@ -199,7 +199,7 @@ public class InterfazCrucigrama extends JFrame  {
 	public void opcionUno()
 	{
 		
-		JOptionPane.showMessageDialog(this, "Respuesta 1", "Respuesta", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, mundo.darMetodo1(), "Respuesta", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	/**
@@ -207,7 +207,7 @@ public class InterfazCrucigrama extends JFrame  {
 	 */
 	public void opcionDos()
 	{
-		JOptionPane.showMessageDialog(this, "Respuesta 2", "Respuesta", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, mundo.darMetodo2(), "Respuesta", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	/**

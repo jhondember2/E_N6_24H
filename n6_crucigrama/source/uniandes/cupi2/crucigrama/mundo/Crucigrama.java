@@ -44,12 +44,12 @@ public class Crucigrama
 	/**
 	 * Arreglo que almacena las descripciones horizontales del archivo de propiedades
 	 */
-	private String[] palabraH;
+	private String[] descripH;
 	
 	/**
 	 * Arreglo que almacena las descripciones verticales del archivo de propiedades
 	 */
-	private String[] palabraV;
+	private String[] descripV;
 	
 	
 	// Atributo que representa el mundo del programa
@@ -82,20 +82,20 @@ public class Crucigrama
 		
 		int i =0;
 		String[] c = null;
-		palabraH = new String[Integer.parseInt(datos.getProperty("crucigrama.palabrasHorizontales"))];
-		while(i<palabraH.length)
+		descripH = new String[Integer.parseInt(datos.getProperty("crucigrama.palabrasHorizontales"))];
+		while(i<descripH.length)
 		{
 			c = datos.getProperty("crucigrama.Hpalabra" + (i+1)).split(";");
-			palabraH[i] = c[0] + ":" + c[1] + " - " + datos.getProperty("crucigrama.Hdescripcion" + (i+1));
+			descripH[i] = c[0] + ":" + c[1] + " - " + datos.getProperty("crucigrama.Hdescripcion" + (i+1));
 			i++;
 		}
 		
 		i =0;
-		palabraV = new String[Integer.parseInt(datos.getProperty("crucigrama.palabrasVerticales"))];
-		while(i<palabraV.length)
+		descripV = new String[Integer.parseInt(datos.getProperty("crucigrama.palabrasVerticales"))];
+		while(i<descripV.length)
 		{
 			c = datos.getProperty("crucigrama.Vpalabra" + (i+1)).split(";");
-			palabraV[i] = c[0] + ":" + c[1] + " - " + datos.getProperty("crucigrama.Vdescripcion" + (i+1));
+			descripV[i] = c[0] + ":" + c[1] + " - " + datos.getProperty("crucigrama.Vdescripcion" + (i+1));
 			i++;
 		}
 		
@@ -268,18 +268,18 @@ public class Crucigrama
 	 * Devuelve un arreglo con las descripciones horizontales
 	 * @return descripciones horizontales
 	 */
-	public String[] darpalabraH()
+	public String[] dardescripH()
 	{
-		return palabraH;
+		return descripH;
 	}
 	
 	/**
 	 * Devuelve un arreglo con las descripciones verticales
 	 * @return descripciones verticales
 	 */
-	public String[] darpalabraV()
+	public String[] dardescripV()
 	{
-		return palabraV;
+		return descripV;
 	}
 	
 	/**

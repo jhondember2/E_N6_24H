@@ -1,5 +1,6 @@
 package uniandes.cupi2.crucigrama.interfaz;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.TextField;
 
@@ -32,42 +33,96 @@ public class PanelTablero extends JPanel {
 	// ---------------------------------------------------------------
 	public PanelTablero(InterfazCrucigrama pInterfaz, int columnas, int filas)
 	{
-		
-		removeAll();
-		setLayout(new GridLayout (filas+1, columnas+1));
+		interfaz = pInterfaz;
+		setLayout(new GridLayout(filas+1, columnas+1));
 		cuadricula = new JTextField[filas][columnas];
+		
 		add(new JLabel());
 		
-		for (int i = 1; i <= filas; i++) {
-			
-			JLabel numeroH = new JLabel(i+"", JLabel.CENTER);
-			
+		int j=0;
+		for (int i = 1; i <=columnas; i++) {
+			JLabel k = new JLabel(i+"", JLabel.CENTER);
+			add(k);
+			i++;
 		}
 		
-	}
-	
-	
-	public void inicializar(int filas, int columnas, String[][] pCuadricula )
-	{
-		
-		cuadricula = new JTextField[filas][columnas];
-		
-		for (int i = 0; i < filas; i++) {
-			for (int j = 0; j < columnas; j++) {
+		for (int j2 = 0; j2 < filas; j2++) {
+			
+			JLabel a = new JLabel(""+(j2+1), JLabel.CENTER);
+			add(a);
+			
+			for (int k = 0; k < columnas; k++) {
 				
-				if (i==0) {
-					cuadricula[i][j]= new JTextField(j);
-					
-				}else if(j==0){
-					cuadricula[i][j]= new JTextField(i);
-					
-				}else{
-					
-					cuadricula [i][j]= new JTextField("");
+				JTextField lugar = new JTextField();
+				String pl = ""+interfaz.darLetra(k,j2);
+				if(pl.equals("$"))
+				{
+					lugar.setBackground(Color.BLACK);
+					lugar.setEditable(false);
+					lugar.setText(" ");
 				}
+				add(lugar);
+				cuadricula[j2][j] = lugar;
+				j++;
+				
 			}
 		}
-		
+	}
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public JTextField darCampo(int x, int y)
+	{
+		return cuadricula[y][x];
+	}
+	
+	/**
+	 * 
+	 */
+	public void vaciar()
+	{
+		int i=0;
+		int j=0;
+		while(i<cuadricula.length)
+		{
+			j=0;
+			while(j<cuadricula[0].length)
+			{
+				if(!(cuadricula[i][j].getBackground().equals(Color.BLACK)))
+				{
+					cuadricula[i][j].setBackground(Color.WHITE);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void limpiar()
+	{
+		int i=0;
+		int j=0;
+		while(i<cuadricula.length)
+		{
+			j=0;
+			while(j<cuadricula[0].length)
+			{
+				if(!(cuadricula[i][j].getBackground().equals(Color.BLACK)))
+				{
+					cuadricula[i][j].setText("");
+					cuadricula[i][j].setBackground(Color.WHITE);
+				}
+				j++;
+			}
+			i++;
+		}
 	}
 
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -164,18 +165,20 @@ public class PanelAcciones extends JPanel implements ActionListener {
 		
 		if(comando.equals(V_HORIZONTALES))
 		{
+			interfaz.validarHorizontales();
 			
 		}
 		else if (comando.equals(V_VERTICALES))
 		{
-			
+			interfaz.validarVerticales();
 		}
 		else if (comando.equals(SOLUCIONAR)) 
 		{
-			
+			interfaz.solucinar();
 		} 
 		else if (comando.equals(LIMPIAR))
 		{
+			interfaz.limpiar();
 			
 		}
 		else if (comando.equals(CARGAR))
@@ -183,10 +186,11 @@ public class PanelAcciones extends JPanel implements ActionListener {
 			interfaz.cargarTablero();
 		}
 		else if (comando.equals(O_UNO)) {
-			
+			interfaz.opcionUno();
 		}
 		else if (comando.equals(O_DOS))
 		{
+			interfaz.opcionDos();
 			
 		}
 	}
